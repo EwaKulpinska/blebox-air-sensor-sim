@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-</script>
-
 <template>
 	<div class="wrapper">
 		<nav>
@@ -11,6 +7,13 @@ import { RouterLink, RouterView } from "vue-router";
 	</div>
 	<RouterView />
 </template>
+
+<script setup>
+import { RouterLink, RouterView } from "vue-router";
+import { onMounted } from "vue";
+
+onMounted(() => {});
+</script>
 
 <style scoped>
 header {
