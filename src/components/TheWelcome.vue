@@ -1,7 +1,10 @@
 <template>
-	<div class="hello">
+	<div class="wrapper">
 		<h1>This is the Home page</h1>
-		<button @click="sendRequest('http://localhost:5002/info')">
+		<button
+			class="wrapper-button"
+			@click="sendRequest('http://localhost:5002/info')"
+		>
 			Check sensor
 		</button>
 	</div>
@@ -14,17 +17,20 @@ async function sendRequest(url) {
 		headers: { "Content-Type": "application/json" },
 	});
 	const jsonResponse = await response.json();
+
 	console.log(jsonResponse);
 	return jsonResponse;
 }
 </script>
 
-<style>
-.hello {
-	min-height: 100vh;
+<style scoped lang="scss">
+.wrapper {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	h1 {
+		margin-bottom: 2rem;
+	}
 }
 </style>
