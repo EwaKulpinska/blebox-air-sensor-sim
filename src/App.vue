@@ -33,10 +33,11 @@ async function sendRequest(url) {
 }
 
 onMounted(() => {
+	sensorsStore.clearSensorsList();
 	urls.value.forEach(async (url) => {
 		const finalURL = url + "/info";
 		const sensorData = await sendRequest(finalURL);
-		sensorsStore.saveSensorData(sensorData);
+		sensorsStore.saveSensorData(sensorData, url);
 	});
 });
 </script>

@@ -4,13 +4,17 @@ import { defineStore } from "pinia";
 export const useSensorsStore = defineStore("sensors", () => {
 	const sensorsList = ref([]);
 
-	async function saveSensorData(sensorsData) {
+	function clearSensorsList() {
+		sensorsList.value = [];
+	}
+
+	async function saveSensorData(sensorsData, url) {
 		const sensor = {
+			Address: url,
 			Name: sensorsData.deviceName,
 			Product: sensorsData.product,
 			Type: sensorsData.type,
 			ID: sensorsData.id,
-			IP: sensorsData.ip,
 		};
 		addSensor(sensor);
 	}
@@ -23,5 +27,5 @@ export const useSensorsStore = defineStore("sensors", () => {
 		return sensorsList.value;
 	});
 
-	return { saveSensorData, addSensor, checkSensorList };
+	return { clearSensorsList, saveSensorData, addSensor, checkSensorList };
 });
