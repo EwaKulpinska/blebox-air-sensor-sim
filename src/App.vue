@@ -10,9 +10,35 @@
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import { useSensorsStore } from "@/stores/sensors";
 
-onMounted(() => {});
+const sensorsStore = useSensorsStore();
+
+const urls = ref([
+	"http://localhost:5000",
+	"http://localhost:5001",
+	"http://localhost:5002",
+]);
+
+async function sendRequest(url) {
+	const response = await fetch(url, {
+		method: "GET",
+		mode: "cors",
+		headers: { "Content-Type": "application/json" },
+	});
+	const jsonResponse = await response.json();
+
+	return jsonResponse.device;
+}
+
+onMounted(() => {
+	urls.value.forEach(async (url) => {
+		const finalURL = url + "/info";
+		const sensorData = await sendRequest(finalURL);
+		sensorsStore.saveSensorData(sensorData);
+	});
+});
 </script>
 
 <style scoped>

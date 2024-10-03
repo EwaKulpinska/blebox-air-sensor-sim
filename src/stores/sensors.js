@@ -2,12 +2,26 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
 export const useSensorsStore = defineStore("sensors", () => {
-	const sensor5002 = ref({});
-	const checkSensor5002 = computed(() => sensor5002.value);
+	const sensorsList = ref([]);
 
-	function setSensor5002(data) {
-		sensor5002.value = data;
+	async function saveSensorData(sensorsData) {
+		const sensor = {
+			Name: sensorsData.deviceName,
+			Product: sensorsData.product,
+			Type: sensorsData.type,
+			ID: sensorsData.id,
+			IP: sensorsData.ip,
+		};
+		addSensor(sensor);
 	}
 
-	return { checkSensor5002, setSensor5002 };
+	function addSensor(sensor) {
+		sensorsList.value.push(sensor);
+	}
+
+	const checkSensorList = computed(() => {
+		return sensorsList.value;
+	});
+
+	return { saveSensorData, addSensor, checkSensorList };
 });
